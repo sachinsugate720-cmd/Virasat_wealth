@@ -1,6 +1,5 @@
 [build]
   publish = "netlify"
-  command = ""
 
 [[redirects]]
   from = "/*"
