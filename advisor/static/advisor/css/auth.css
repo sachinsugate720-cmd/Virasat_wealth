@@ -1,0 +1,94 @@
+:root {
+  --brand-900: #0f172a;
+  --brand-700: #0f4c81;
+  --brand-600: #1565a7;
+  --emerald-600: #1c9b73;
+  --bg-main: #f4f8fc;
+  --surface: #ffffff;
+  --text-main: #132033;
+  --text-muted: #62758f;
+  --border: #dde7f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  font-family: "Manrope", sans-serif;
+  background: radial-gradient(900px 460px at 2% -2%, rgba(34, 180, 135, 0.14), transparent 60%),
+              radial-gradient(900px 460px at 96% 0%, rgba(15, 76, 129, 0.18), transparent 62%),
+              var(--bg-main);
+  color: var(--text-main);
+}
+
+.auth-shell {
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(13, 33, 58, 0.1);
+  padding: 26px;
+}
+
+.auth-title {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--brand-900);
+}
+
+.auth-subtitle {
+  margin: 0 0 20px;
+  color: var(--text-muted);
+}
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #cddceb;
+  padding: 11px 12px;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(21, 101, 167, 0.16);
+  border-color: #90badc;
+}
+
+.btn-brand {
+  width: 100%;
+  background: linear-gradient(135deg, var(--brand-700), var(--brand-600));
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 11px 16px;
+}
+
+.btn-brand:hover {
+  color: #fff;
+  filter: brightness(1.03);
+}
+
+.small-link {
+  color: var(--brand-700);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.small-link:hover {
+  text-decoration: underline;
+}

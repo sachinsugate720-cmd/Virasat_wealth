@@ -1,0 +1,427 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wealth Advisor | Goal-Based Mutual Fund Planning</title>
+  <meta name="description" content="Goal-based mutual fund advisory for SIP, retirement, tax saving, and long-term wealth planning with transparent, compliant guidance.">
+  <meta name="keywords" content="mutual fund advisor, SIP planning, retirement planning, ELSS, wealth management">
+  <meta property="og:title" content="Wealth Advisor | Smart SIP & Wealth Planning">
+  <meta property="og:description" content="Trusted, transparent mutual fund advisory for long-term investors.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'advisor/css/home.css' %}">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Wealth Advisor",
+      "description": "Goal-based mutual fund advisory and portfolio planning.",
+      "areaServed": "India",
+      "serviceType": ["Mutual Fund Advisory", "SIP Planning", "Retirement Planning", "ELSS Tax Planning"]
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top fintech-nav">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+          <span class="brand-dot"></span>
+          Wealth Advisor
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tools">Tools</a></li>
+            <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+            {% if user.is_authenticated %}
+              <li class="nav-item"><span class="nav-user mt-2 mt-lg-0">Hi, {{ user.username }}</span></li>
+              {% if user.is_staff %}
+                <li class="nav-item"><a class="btn btn-outline-light btn-sm mt-2 mt-lg-0" href="{% url 'export_leads_csv' %}">Export Leads</a></li>
+              {% endif %}
+              <li class="nav-item"><a class="btn btn-brand btn-sm mt-2 mt-lg-0" href="#contact">Book Consultation</a></li>
+              <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-light btn-sm mt-2 mt-lg-0">Logout</button>
+                </form>
+              </li>
+            {% else %}
+              <li class="nav-item"><a class="btn btn-outline-light btn-sm mt-2 mt-lg-0" href="{% url 'login' %}">Login</a></li>
+              <li class="nav-item"><a class="btn btn-brand btn-sm mt-2 mt-lg-0" href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {% if messages %}
+      <section class="pt-5 mt-4">
+        <div class="container">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} mt-3 mb-0" role="alert">{{ message }}</div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <section id="home" class="hero section-top">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <span class="eyebrow reveal">SEBI-Compliant Mutual Fund Advisory</span>
+            <h1 class="hero-title reveal">Build Long-Term Wealth With A Disciplined SIP Strategy</h1>
+            <p class="hero-subtitle reveal">Personalized investment plans for professionals, families, and first-time investors with transparent, goal-based execution.</p>
+            <div class="d-flex flex-wrap gap-3 reveal">
+              <a href="#contact" class="btn btn-brand">Get Free Portfolio Review</a>
+              <a href="#tools" class="btn btn-outline-light btn-outline-hero">Try SIP Calculator</a>
+            </div>
+            <div class="metric-grid mt-4">
+              <article class="metric-card reveal">
+                <p class="metric-value"><span class="counter" data-target="125">0</span>+ Cr</p>
+                <p class="metric-label">AUM Guided</p>
+              </article>
+              <article class="metric-card reveal">
+                <p class="metric-value"><span class="counter" data-target="850">0</span>+</p>
+                <p class="metric-label">Families Served</p>
+              </article>
+              <article class="metric-card reveal">
+                <p class="metric-value"><span class="counter" data-target="12">0</span>+ Years</p>
+                <p class="metric-label">Advisory Experience</p>
+              </article>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="hero-visual reveal">
+              <div class="graph-card">
+                <p class="graph-title">Portfolio Trend</p>
+                <svg viewBox="0 0 300 150" class="line-graph" role="img" aria-label="Portfolio growth chart">
+                  <polyline points="0,130 35,120 70,118 105,95 140,85 175,72 210,54 245,32 280,20"/>
+                </svg>
+                <div class="growth-chip">+18.4% CAGR (Illustrative)</div>
+              </div>
+              <div class="float-icon icon-a">SIP</div>
+              <div class="float-icon icon-b">ELSS</div>
+              <div class="float-icon icon-c">Goals</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="container d-flex flex-wrap justify-content-center gap-3 gap-lg-4">
+        <span class="trust-pill reveal">ARN Registered Advisor</span>
+        <span class="trust-pill reveal">Transparent Process</span>
+        <span class="trust-pill reveal">Goal-Based Allocation</span>
+        <span class="trust-pill reveal">Regular Portfolio Reviews</span>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-7">
+            <div class="panel reveal">
+              <h2 class="section-title">About The Advisor</h2>
+              <p class="section-subtitle">A structured approach focused on your life goals, timeline, and risk comfort.</p>
+              <p>I help investors build resilient portfolios through asset allocation, SIP discipline, and periodic rebalancing. Advice is designed around client outcomes, not product pushing.</p>
+              <div class="two-col-list mt-4">
+                <div>
+                  <h3>Credibility</h3>
+                  <p>ARN License: XXXXX<br>Experience: 12+ Years<br>Review Frequency: Quarterly</p>
+                </div>
+                <div>
+                  <h3>Promise</h3>
+                  <p>Clear communication, transparent rationale, and actionable guidance at every market cycle.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="panel dark-panel reveal">
+              <h3>New Investor Quick Start</h3>
+              <ol class="process-mini mb-0">
+                <li>Understand your goals and timeline.</li>
+                <li>Set monthly SIP and emergency buffer.</li>
+                <li>Build allocation across suitable funds.</li>
+                <li>Track, rebalance, and stay consistent.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section section-soft">
+      <div class="container">
+        <h2 class="section-title text-center reveal">Services Designed Around Real Financial Goals</h2>
+        <p class="section-subtitle text-center mx-auto reveal">Every service maps to an outcome and a reviewable plan.</p>
+        <div class="row g-4 mt-1">
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>Mutual Fund Advisory</h3><p>Portfolio architecture by risk profile and horizon.</p></article></div>
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>SIP Planning</h3><p>Automated wealth creation with contribution milestones.</p></article></div>
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>Retirement Planning</h3><p>Inflation-adjusted retirement corpus planning.</p></article></div>
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>Tax Saving (ELSS)</h3><p>Tax efficiency without compromising allocation strategy.</p></article></div>
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>Child Education Planning</h3><p>Goal-specific projection and phased investments.</p></article></div>
+          <div class="col-md-6 col-lg-4"><article class="service-card reveal"><h3>Portfolio Review</h3><p>Regular review with risk and drift control.</p></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="section">
+      <div class="container">
+        <h2 class="section-title text-center reveal">How Investing Starts With Us</h2>
+        <div class="timeline mt-4">
+          <article class="timeline-step reveal"><span>1</span><h3>Discovery Call</h3><p>Understand goals, risk tolerance, and cash flow.</p></article>
+          <article class="timeline-step reveal"><span>2</span><h3>Plan Design</h3><p>Create personalized SIP and allocation roadmap.</p></article>
+          <article class="timeline-step reveal"><span>3</span><h3>Execution</h3><p>Assist onboarding and investment setup smoothly.</p></article>
+          <article class="timeline-step reveal"><span>4</span><h3>Review Cycle</h3><p>Track progress and rebalance by milestones.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="testimonials">
+      <div class="container">
+        <h2 class="section-title text-center reveal">What Clients Say</h2>
+        <div class="row g-4 mt-1">
+          <div class="col-md-4"><blockquote class="testimonial reveal">"Our SIP discipline improved and goals became clear within months."<cite>- Salaried Professional, Pune</cite></blockquote></div>
+          <div class="col-md-4"><blockquote class="testimonial reveal">"Clear advice, no confusion, and regular review meetings."<cite>- Business Owner, Mumbai</cite></blockquote></div>
+          <div class="col-md-4"><blockquote class="testimonial reveal">"Great support for retirement and tax planning in one framework."<cite>- IT Couple, Bengaluru</cite></blockquote></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <div class="container">
+        <h2 class="section-title text-center reveal">Investor Tools</h2>
+        <p class="section-subtitle text-center mx-auto reveal">Interactive tools to estimate outcomes and start informed conversations.</p>
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <article class="panel reveal">
+              <h3 class="tool-title">SIP Calculator</h3>
+              <div class="mb-3">
+                <label for="sipAmount" class="form-label">Monthly SIP (INR)</label>
+                <input id="sipAmount" type="number" class="form-control" value="10000" min="500">
+              </div>
+              <div class="mb-3">
+                <label for="sipYears" class="form-label">Years</label>
+                <input id="sipYears" type="number" class="form-control" value="15" min="1" max="40">
+              </div>
+              <div class="mb-3">
+                <label for="sipReturn" class="form-label">Expected Return (% p.a.)</label>
+                <input id="sipReturn" type="number" class="form-control" value="12" min="1" max="30" step="0.1">
+              </div>
+              <div class="tool-output" id="sipResult">Estimated Corpus: INR 0</div>
+            </article>
+          </div>
+          <div class="col-lg-4">
+            <article class="panel reveal">
+              <h3 class="tool-title">Goal Planner</h3>
+              <div class="mb-3">
+                <label for="goalTarget" class="form-label">Target Goal Amount (INR)</label>
+                <input id="goalTarget" type="number" class="form-control" value="5000000" min="50000">
+              </div>
+              <div class="mb-3">
+                <label for="goalYears" class="form-label">Time Horizon (Years)</label>
+                <input id="goalYears" type="number" class="form-control" value="12" min="1" max="40">
+              </div>
+              <div class="mb-3">
+                <label for="goalReturn" class="form-label">Expected Return (% p.a.)</label>
+                <input id="goalReturn" type="number" class="form-control" value="11" min="1" max="30" step="0.1">
+              </div>
+              <div class="tool-output" id="goalResult">Required SIP: INR 0 / month</div>
+            </article>
+          </div>
+          <div class="col-lg-4">
+            <article class="panel reveal">
+              <h3 class="tool-title">Risk Profile Quiz</h3>
+              <div class="mb-3">
+                <label for="riskAge" class="form-label">Age Group</label>
+                <select id="riskAge" class="form-select">
+                  <option value="3">21-35</option>
+                  <option value="2">36-50</option>
+                  <option value="1">51+</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="riskHorizon" class="form-label">Investment Horizon</label>
+                <select id="riskHorizon" class="form-select">
+                  <option value="1">1-3 years</option>
+                  <option value="2">3-7 years</option>
+                  <option value="3">7+ years</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="riskVolatility" class="form-label">Comfort With Volatility</label>
+                <select id="riskVolatility" class="form-select">
+                  <option value="1">Low</option>
+                  <option value="2">Medium</option>
+                  <option value="3">High</option>
+                </select>
+              </div>
+              <button class="btn btn-brand w-100" id="riskAssessBtn" type="button">Assess Risk</button>
+              <div class="tool-output mt-3" id="riskResult">Profile: -</div>
+            </article>
+          </div>
+        </div>
+        <p class="disclaimer mt-3">These tools provide illustrative estimates, not guaranteed returns.</p>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="sip-timeline">
+      <div class="container">
+        <h2 class="section-title text-center reveal">How SIP Builds Wealth</h2>
+        <div class="sip-journey mt-4">
+          <div class="journey-item reveal"><h3>Year 1-3</h3><p>Habit building and base corpus starts forming.</p></div>
+          <div class="journey-item reveal"><h3>Year 4-7</h3><p>Compounding accelerates with disciplined additions.</p></div>
+          <div class="journey-item reveal"><h3>Year 8-12</h3><p>Portfolio momentum grows and goal visibility improves.</p></div>
+          <div class="journey-item reveal"><h3>Year 12+</h3><p>Long-term wealth engine supports life milestones.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <h2 class="section-title text-center reveal">Investor Education</h2>
+        <div class="row g-4 mt-1">
+          <div class="col-md-4"><article class="edu-card reveal"><h3>SIP Basics For Beginners</h3><p>How SIP works and why consistency matters.</p><a href="#">Read Guide</a></article></div>
+          <div class="col-md-4"><article class="edu-card reveal"><h3>ELSS and Tax Planning</h3><p>Tax-saving options with long-term investing context.</p><a href="#">Read Guide</a></article></div>
+          <div class="col-md-4"><article class="edu-card reveal"><h3>Market Volatility Playbook</h3><p>What to do and avoid during uncertain markets.</p><a href="#">Read Guide</a></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-panel reveal">
+          <h2>Get A Free Portfolio Health Check</h2>
+          <p>Receive a structured review with allocation insights and practical next steps.</p>
+          <a href="#contact" class="btn btn-brand">Claim Free Review</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-soft">
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-5">
+            <div class="panel reveal">
+              <h2 class="section-title">Book Consultation</h2>
+              <p class="section-subtitle">Tell us your goal and we will suggest a practical investment path.</p>
+              <p><strong>Email:</strong> your@email.com</p>
+              <p><strong>Phone:</strong> +91 XXXXXXXX</p>
+              <p><strong>Office Hours:</strong> Mon-Sat, 10:00 AM - 7:00 PM</p>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            {% if user.is_authenticated %}
+              <form class="panel reveal" id="consultForm" method="post" action="{% url 'home' %}#contact">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="consultation">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="{{ consultation_form.full_name.id_for_label }}">Full Name</label>
+                    {{ consultation_form.full_name }}
+                    {% for error in consultation_form.full_name.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="{{ consultation_form.email.id_for_label }}">Email</label>
+                    {{ consultation_form.email }}
+                    {% for error in consultation_form.email.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="{{ consultation_form.phone.id_for_label }}">Phone</label>
+                    {{ consultation_form.phone }}
+                    {% for error in consultation_form.phone.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="{{ consultation_form.primary_goal.id_for_label }}">Primary Goal</label>
+                    {{ consultation_form.primary_goal }}
+                    {% for error in consultation_form.primary_goal.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="{{ consultation_form.message.id_for_label }}">Message</label>
+                    {{ consultation_form.message }}
+                    {% for error in consultation_form.message.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                  </div>
+                  {% for error in consultation_form.non_field_errors %}<div class="col-12 text-danger small">{{ error }}</div>{% endfor %}
+                  <div class="col-12 d-flex flex-wrap gap-3 align-items-center">
+                    <button class="btn btn-brand" type="submit">Request Consultation</button>
+                    <span class="form-note">Data kept confidential. No spam.</span>
+                  </div>
+                </div>
+              </form>
+            {% else %}
+              <div class="panel reveal auth-lock">
+                <h3 class="tool-title">Login Required For Booking</h3>
+                <p class="mb-3">Create an account or login to submit your consultation request securely.</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <a class="btn btn-brand" href="{% url 'register' %}">Register</a>
+                  <a class="btn btn-outline-secondary" href="{% url 'login' %}">Login</a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="mb-2">Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.</p>
+      <p class="mb-0 small-muted">This page is for informational purposes and does not guarantee returns.</p>
+    </div>
+  </footer>
+
+  {% if user.is_authenticated %}
+    <a class="floating-consult" href="#contact" aria-label="Book consultation">Book Consultation</a>
+  {% else %}
+    <a class="floating-consult" href="{% url 'login' %}" aria-label="Login to book consultation">Login To Consult</a>
+  {% endif %}
+  <a class="floating-whatsapp" href="https://wa.me/910000000000" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
+  <div class="mobile-sticky-cta">
+    <a href="#tools">Calculator</a>
+    {% if user.is_authenticated %}
+      <a href="#contact">Consult</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+
+  <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="exitModalLabel">Before You Go</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Get a free portfolio review summary in one call.
+        </div>
+        <div class="modal-footer">
+          <a href="#contact" class="btn btn-brand" data-bs-dismiss="modal">Book Free Review</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="{% static 'advisor/js/home.js' %}" defer></script>
+</body>
+</html>
